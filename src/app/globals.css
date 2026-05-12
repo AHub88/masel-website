@@ -55,3 +55,51 @@
     color: var(--color-primary-dark);
   }
 }
+
+/* =========================================================
+   LemmyFlansch — Theming an Praxis-Palette anpassen
+   Überschreibt die theme-* Variablen, die Lemmy injiziert.
+   ========================================================= */
+body [class*="lemmyFlansch-theme-"] {
+  --lf-bg: #5c7a56;
+  --lf-fg: #ffffff;
+  --lf-accent: #44603f;
+  --lf-shadow: 0 8px 24px rgb(92 122 86 / 0.25);
+}
+
+body .lemmyFlansch-button,
+body .lemmyFlansch-floating,
+body .lemmyFlansch-teaser {
+  font-family: var(--font-sans);
+}
+
+body .lemmyFlansch-button,
+body .lemmyFlansch-floating {
+  --lf-radius: 0.625rem;
+}
+
+body .lemmyFlansch-teaser {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.625rem;
+  color: var(--color-foreground);
+}
+
+body .lemmyFlansch-teaser-title {
+  color: var(--color-primary-dark);
+  font-family: var(--font-serif);
+}
+
+body .lemmyFlansch-teaser-day-nav {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+body .lemmyFlansch-teaser-day-nav:not(:disabled):hover {
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+body .lemmyFlansch-teaser-time {
+  color: var(--color-primary);
+}

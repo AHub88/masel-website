@@ -112,11 +112,21 @@ export const siteSettings = defineType({
       description: "z. B. Behandlung ausschließlich nach Terminvereinbarung.",
     }),
     defineField({
+      name: "lemniscusEmbedCode",
+      title: "lemniscus my/OT — Einbettungscode (Lemmy-Flansch)",
+      type: "text",
+      rows: 6,
+      group: "general",
+      description:
+        "Vollständigen Einbettungscode (Script-Tag + DIV) aus lemniscus einfügen. Anleitung: helpdesk.lemniscus.de → my/OT in eigene Website einbinden.",
+    }),
+    defineField({
       name: "lemniscusEmbedUrl",
-      title: "lemniscus my/OT — Einbettungs-URL",
+      title: "lemniscus my/OT — iframe-URL (Fallback)",
       type: "url",
       group: "general",
-      description: "URL für das Buchungs-iframe. Leer lassen, solange noch nicht aktiv.",
+      description:
+        "Optional: klassische iframe-Einbettung als Fallback. Wird nur genutzt, wenn oben kein Einbettungscode hinterlegt ist.",
     }),
   ],
   preview: {

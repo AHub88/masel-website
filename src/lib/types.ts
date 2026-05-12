@@ -26,6 +26,7 @@ export type Praxis = {
   email: string;
   openingHours: OpeningHour[];
   openingHoursNote: string;
+  lemniscusEmbedCode?: string;
   lemniscusEmbedUrl?: string;
 };
 

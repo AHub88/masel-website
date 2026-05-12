@@ -56,6 +56,7 @@ export const getPraxis = cache(async (): Promise<Praxis> => {
         ? (data.openingHours as Praxis["openingHours"])
         : mockPraxis.openingHours,
       openingHoursNote: data.openingHoursNote ?? mockPraxis.openingHoursNote,
+      lemniscusEmbedCode: data.lemniscusEmbedCode ?? undefined,
       lemniscusEmbedUrl: data.lemniscusEmbedUrl ?? undefined,
     };
   } catch (e) {

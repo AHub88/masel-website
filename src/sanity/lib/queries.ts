@@ -11,6 +11,7 @@ export const siteSettingsQuery = defineQuery(`
     address,
     openingHours[]{day, from, to},
     openingHoursNote,
+    lemniscusEmbedCode,
     lemniscusEmbedUrl
   }
 `);

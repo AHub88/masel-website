@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { Container } from "@/components/container";
+import { LemniscusEmbed } from "@/components/lemniscus-embed";
 import { getPraxis } from "@/lib/data";
 import { formatPhone } from "@/lib/utils";
 
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 
 export default async function TerminPage() {
   const praxis = await getPraxis();
+  const embedCode = praxis.lemniscusEmbedCode?.trim();
   const embedUrl = praxis.lemniscusEmbedUrl;
 
   return (
@@ -24,7 +26,11 @@ export default async function TerminPage() {
       />
 
       <Container className="py-14 sm:py-20">
-        {embedUrl ? (
+        {embedCode ? (
+          <div className="rounded-lg border border-border bg-surface p-4 shadow-soft sm:p-6">
+            <LemniscusEmbed code={embedCode} />
+          </div>
+        ) : embedUrl ? (
           <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-soft">
             <iframe
               src={embedUrl}
@@ -40,13 +46,10 @@ export default async function TerminPage() {
             </p>
             <h2 className="mt-3 font-serif text-2xl">lemniscus my/OT Buchungs-Widget</h2>
             <p className="mt-3 max-w-2xl text-foreground/75">
-              Hier wird das Buchungs-Widget von lemniscus eingebettet — entweder
-              als{" "}
-              <code className="rounded bg-primary-light px-1.5 py-0.5 text-xs">
-                &lt;iframe&gt;
-              </code>{" "}
-              oder als neuerer lemmy-Flansch. Die URL wird im CMS unter
-              &bdquo;Praxis-Einstellungen &rarr; lemniscus my/OT&ldquo; gepflegt.
+              Hier wird der Lemmy-Flansch eingebettet, sobald my/OT in der
+              Praxis aktiviert ist. Der Einbettungscode wird im CMS unter
+              &bdquo;Praxis-Einstellungen &rarr; lemniscus my/OT&ldquo;
+              gepflegt.
             </p>
 
             <div className="mt-8 rounded-md bg-primary-light/40 p-5 text-sm text-primary-dark">

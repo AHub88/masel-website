@@ -1,16 +1,26 @@
 # Naturheilpraxis Masel — Relaunch
 
-Next.js + Sanity CMS, deploybar auf Vercel (Region Frankfurt).
+Moderne Praxis-Website mit Next.js 15, Sanity CMS und Vercel-Hosting (Frankfurt-Region).
+
+🟢 **Live (Preview)**: https://masel-website.vercel.app
+📁 **Repo**: https://github.com/AHub88/masel-website
+🛠️ **CMS Studio**: https://masel-website.vercel.app/studio
+
+> Eine ausführliche Entwickler-Doku mit Konventionen, Pitfalls und Daten-Flow steht in [`CLAUDE.md`](./CLAUDE.md).
+
+---
 
 ## Stack
 
 - **Next.js 15** (App Router, React 19, TypeScript)
-- **Tailwind CSS v4** mit eigenem Theme (`src/app/globals.css`)
-- **next/font** mit Inter (sans) + Lora (serif), self-hosted
-- **Sanity v3** als Headless-CMS, Studio eingebettet unter `/studio`
-- Mock-Fallback in `src/lib/mock-data.ts` — Seite läuft auch ohne Sanity-Konfiguration
+- **Tailwind CSS v4** mit eigenem Theme in `src/app/globals.css` (Sage-Palette `#5c7a56`)
+- **Sanity v3** Headless-CMS, Studio embedded unter `/studio`
+- **next/font** self-hosted: Inter (sans) + Lora (serif)
+- **lemniscus LemmyFlansch** für Online-Terminvergabe
+- **Vercel** Hosting, Region `fra1` (Frankfurt) — DSGVO-konform
+- Mock-Daten-Fallback in `src/lib/mock-data.ts` — Seite läuft auch ohne CMS-Konfiguration
 
-## Lokal starten
+## Schnellstart (lokal)
 
 ```bash
 pnpm install
@@ -18,87 +28,108 @@ pnpm dev
 # http://localhost:3000
 ```
 
-Die Seite läuft sofort — mit Mock-Daten. Das Studio unter `/studio` zeigt
-eine Setup-Anleitung, solange Sanity nicht konfiguriert ist.
+Funktioniert sofort mit Mock-Daten. Für CMS-Anbindung `.env.local` nach `.env.example` ausfüllen:
 
-## Sanity einrichten (einmalig)
-
-1. **Projekt anlegen** unter [sanity.io/manage](https://sanity.io/manage)
-   (kostenlos, Region **EU** wählen).
-2. **Project-ID** notieren, Dataset bleibt `production`.
-3. Datei `.env.local` nach Vorlage `.env.example` erstellen:
-   ```
-   NEXT_PUBLIC_SANITY_PROJECT_ID=<deine-id>
-   NEXT_PUBLIC_SANITY_DATASET=production
-   ```
-4. **CORS-Origin** im Sanity-Manage hinzufügen:
-   `http://localhost:3000` (Dev) + später `https://masel.info` (Prod), mit „Credentials" aktiviert.
-5. Dev-Server neu starten — Studio unter `/studio` ist nun live.
-6. Erstes Login: dein Sanity-Account, Inhalte anlegen über die Sidebar.
-
-## Deployment auf Vercel
-
-1. Bei [vercel.com](https://vercel.com) einloggen (GitHub/GitLab-Konto reicht).
-2. „New Project" → dieses Repo verknüpfen (oder via Vercel CLI: `pnpm dlx vercel`).
-3. **Environment Variables** setzen:
-   - `NEXT_PUBLIC_SANITY_PROJECT_ID`
-   - `NEXT_PUBLIC_SANITY_DATASET`
-4. Deploy starten. Region ist über `vercel.json` auf `fra1` (Frankfurt) festgelegt.
-5. Custom Domain hinzufügen: `masel.info` → DNS-Eintrag bei Strato auf Vercel zeigen lassen
-   (Vercel zeigt dir die genauen A/CNAME-Records).
-6. In Sanity unter „API → CORS Origins" die Produktions-URL hinzufügen.
-
-## Verzeichnis
-
-```
-src/
-  app/
-    (site)/                    Öffentliche Routen mit Header/Footer
-      page.tsx                 Startseite
-      osteopathie/             Was ist Osteopathie?
-      behandlungsschwerpunkte/ Übersicht aller Schwerpunkte
-      praxis/                  Über uns (Barbara & Martin)
-      termin/                  lemniscus my/OT (eingebettet)
-      anfahrt/                 Adresse + Karte (DSGVO-2-Klick)
-      kontakt/                 Formular
-      krankenkassen/           Liste bezuschussender Kassen
-      hygienekonzept/ datenschutz/ impressum/
-      layout.tsx               Site-Layout: Header + Main + Footer
-    studio/[[...tool]]/        Embedded Sanity Studio
-    layout.tsx                 Root-Layout: html/body + Fonts
-    globals.css                Theme & Basis-Styles
-    sitemap.ts / robots.ts
-  components/                  Layout & Section-Komponenten
-  lib/
-    data.ts                    Async-Getter mit Sanity + Mock-Fallback
-    mock-data.ts               Fallback-Daten
-    types.ts                   TypeScript-Modelle
-    utils.ts
-  sanity/
-    env.ts                     Sanity-Konfiguration
-    schemas/                   Inhalts-Typen (siteSettings, person, schwerpunkt, notice)
-    structure.ts               Studio-Sidebar (Singletons + Listen)
-    lib/                       Client, Image-URL-Builder, GROQ-Queries
-sanity.config.ts               Studio-Root-Config
-sanity.cli.ts                  Sanity-CLI (Migrations, Backups)
-vercel.json                    fra1-Region + Security-Header
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=91lyoipp
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2025-01-01
+SANITY_API_WRITE_TOKEN=sk...    # nur für pnpm seed (Editor-Permission)
 ```
 
-## Inhalts-Modelle (Sanity)
+CMS einmalig mit Mock-Inhalten befüllen:
 
-- **Praxis-Einstellungen** (Singleton): Name, Adresse, Kontakt,
-  Öffnungszeiten, lemniscus-Embed-URL
-- **Hinweisbox** (Singleton): Urlaubs-/Praxisschließungs-Banner
-- **Personen**: Barbara & Martin (Foto, Bio, Qualifikationen)
-- **Behandlungsschwerpunkte**: Karten auf der Startseite + Detail-Seite
+```bash
+pnpm seed
+```
 
-## Was als Nächstes kommt
+## Seitenstruktur
 
-1. **Sanity-Projekt erstellen** + Env-Vars setzen
-2. Inhalte ins CMS pflegen (Erstbefüllung anhand `mock-data.ts`)
-3. Echte Fotos hochladen
-4. lemniscus my/OT URL ins CMS eintragen, sobald aktiviert
-5. Kontaktformular-Backend (Resend empfohlen)
-6. **Deployment** auf Vercel
-7. Domain `masel.info` umziehen (DNS bei Strato auf Vercel)
-8. Finale Datenschutzerklärung + Cookie-Konzept (mit Anwalt prüfen)
+```
+/                          Startseite mit Hero, USPs, Schwerpunkten, Personen, CTA
+/osteopathie               Methoden-Erklärung
+/behandlungsschwerpunkte   6 Schwerpunkte als Detail-Seiten
+/praxis                    Barbara & Martin (Foto, Bio, Qualifikationen)
+/termin                    LemmyFlansch Buchungs-Widget
+/anfahrt                   Adresse + Anfahrtsbeschreibung
+/kontakt                   Kontaktformular (Backend folgt)
+/krankenkassen             Bezuschussungs-Liste
+/hygienekonzept            Standards der Praxis
+/datenschutz /impressum    Rechtliches
+/studio                    Sanity CMS (Editor-Login)
+```
+
+## CMS pflegen
+
+Im Studio (`/studio`) liegen vier Bereiche in der linken Sidebar:
+
+| Inhaltstyp | Wo es auftaucht |
+|---|---|
+| **Praxis-Einstellungen** (Singleton) | Header, Footer, alle Pages (Kontaktdaten, Öffnungszeiten, lemniscus-Token) |
+| **Hinweisbox** (Singleton) | Banner über der Startseite (z. B. Urlaub). Per Toggle aktivieren, Datum „validUntil" blendet automatisch aus |
+| **Personen** (Liste) | `/praxis` und Personen-Teaser auf der Startseite |
+| **Behandlungsschwerpunkte** (Liste) | Karten auf der Startseite + Details auf `/behandlungsschwerpunkte` |
+
+Änderungen erscheinen nach **Publish** + ~60 Sekunden auf der Live-Site (ISR-Revalidate).
+
+## Online-Terminvergabe (lemniscus LemmyFlansch)
+
+Komplett CMS-gesteuert über zwei Felder in den Praxis-Einstellungen:
+
+- **LemmyFlansch Token** (UUID aus dem lemniscus-Backend)
+- **Floating-Widget Position** (rechts / links / aus)
+
+Sobald der Token gesetzt ist:
+- Site-weites Floating-Widget am Bildschirmrand
+- Auf `/termin`: Teaser mit nächsten freien Slots + Buchungs-Button
+- Styling automatisch in Sage-Palette (CSS-Overrides in `globals.css`)
+
+## Deployment
+
+Auto-Deploy bei jedem Push auf `master`. Manuell triggern:
+
+```bash
+git -c user.email="99470230+AHub88@users.noreply.github.com" \
+    -c user.name="AHub88" \
+    commit -m "..."
+git push
+```
+
+⚠️ Die Noreply-Mail ist Pflicht (siehe [CLAUDE.md](./CLAUDE.md) → Pitfalls).
+
+Env-Variablen in Vercel:
+- `NEXT_PUBLIC_SANITY_PROJECT_ID`
+- `NEXT_PUBLIC_SANITY_DATASET`
+- `NEXT_PUBLIC_SANITY_API_VERSION` (optional, default `2025-01-01`)
+- `NEXT_PUBLIC_SITE_URL` (für finale Domain `https://masel.info` setzen)
+
+Sanity CORS-Origins (in [sanity.io/manage](https://sanity.io/manage) → API):
+- `http://localhost:3000` (Dev)
+- `https://masel-website.vercel.app` (Preview/Production)
+- `https://masel.info` (sobald Domain umgezogen)
+
+## DSGVO
+
+- Hosting: **Vercel Frankfurt** (`fra1`) — DPF-zertifiziert, AVV abschließen
+- CMS: **Sanity EU-Region** — DPF-zertifiziert, AVV abschließen
+- lemniscus: deutscher Anbieter, AVV läuft direkt zwischen Praxis und lemniscus
+- **Keine Cookies** auf der Site selbst, kein Tracking
+- **Keine Google Fonts** (alles self-hosted)
+- **Karten** als Klick-zu-Aktivieren-Platzhalter
+- Datenschutzerklärung und Impressum stehen unter `/datenschutz` und `/impressum` — **vor Go-Live anwaltlich prüfen lassen**
+
+## Offene Punkte
+
+In Reihenfolge der Dringlichkeit:
+
+1. Echte Fotos der Osteopath:innen im Studio hochladen
+2. Kontaktformular-Backend (Resend → Mail an `praxis@masel.info`)
+3. Statische OpenStreetMap-Karte mit Klick-zu-Aktivieren
+4. Impressum-TODOs ausfüllen (Aufsichtsbehörde, Berufshaftpflicht, USt-IdNr.)
+5. AVVs unterzeichnen
+6. Domain `masel.info` von Strato auf Vercel umstellen
+7. Anwaltliche Prüfung von DSE + Impressum
+
+---
+
+Detailliertere Doku, Konventionen und bekannte Stolperstellen siehe **[`CLAUDE.md`](./CLAUDE.md)**.

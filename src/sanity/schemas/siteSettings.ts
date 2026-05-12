@@ -135,6 +135,15 @@ export const siteSettings = defineType({
       description:
         "Position des schwebenden Buchungs-Buttons am Bildschirmrand. Auf Aus, wenn nur Inline-Buttons gewünscht sind.",
     }),
+    defineField({
+      name: "lemniscusDebug",
+      title: "lemniscus — Debug-Modus (temporär)",
+      type: "boolean",
+      group: "general",
+      initialValue: false,
+      description:
+        "Aktiviert die Browser-Konsolen-Logs von LemmyFlansch (z. B. wenn die OT noch nicht freigegeben ist). Vor Go-Live ausschalten.",
+    }),
   ],
   preview: {
     select: { title: "name" },

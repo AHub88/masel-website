@@ -28,6 +28,7 @@ export type Praxis = {
   openingHoursNote: string;
   lemniscusToken?: string;
   lemniscusFloatingSide?: "right" | "left" | "none";
+  lemniscusDebug?: boolean;
 };
 
 export type Person = {

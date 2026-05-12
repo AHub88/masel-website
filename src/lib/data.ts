@@ -59,6 +59,7 @@ export const getPraxis = cache(async (): Promise<Praxis> => {
       lemniscusToken: data.lemniscusToken?.trim() || undefined,
       lemniscusFloatingSide:
         (data.lemniscusFloatingSide as Praxis["lemniscusFloatingSide"]) ?? undefined,
+      lemniscusDebug: data.lemniscusDebug ?? false,
     };
   } catch (e) {
     console.warn("[cms] getPraxis failed, falling back to mock:", e);

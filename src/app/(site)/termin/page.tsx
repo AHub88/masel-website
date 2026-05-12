@@ -31,18 +31,11 @@ export default async function TerminPage() {
               <p className="mt-1 text-sm text-muted">
                 Klicken Sie auf einen Termin oder nutzen Sie den Button für die vollständige Auswahl.
               </p>
-              <div
-                data-lemmy-flansch="teasers"
-                className="mt-5 min-h-[120px] rounded-lg border border-border bg-surface p-4 sm:p-6"
-              />
+              <div data-lemmy-flansch="teasers" />
             </div>
 
             <div className="flex flex-wrap items-center gap-4">
-              {/* Wird von Lemmy-Flansch zu einem Buchungs-Button gerendert */}
-              <a
-                data-lemmy-flansch="button"
-                className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground shadow-soft transition hover:bg-primary-dark"
-              />
+              <a data-lemmy-flansch="button" />
               <a
                 href={`tel:${formatPhone(praxis.phone)}`}
                 className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-6 py-3 text-base font-medium text-foreground transition hover:border-primary hover:text-primary"

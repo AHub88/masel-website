@@ -23,7 +23,7 @@ type SanityPersonResult = {
   title?: string;
   qualifications?: string[];
   bio?: string;
-  photo?: { alt?: string } | null;
+  photo?: { alt?: string; asset?: { _ref?: string } | null } | null;
 };
 
 type SanitySchwerpunktResult = {
@@ -35,6 +35,18 @@ type SanitySchwerpunktResult = {
 
 const REVALIDATE_SECONDS = 60;
 const fetchOpts = { next: { revalidate: REVALIDATE_SECONDS } } as const;
+
+function getSafePhotoUrl(photo: SanityPersonResult["photo"]): string | undefined {
+  if (!photo || typeof photo !== "object") return undefined;
+  if (!("asset" in photo) || !photo.asset) return undefined;
+  try {
+    const url = urlForImage(photo)?.width(800).url();
+    if (!url || url.includes("undefined")) return undefined;
+    return url;
+  } catch {
+    return undefined;
+  }
+}
 
 export const getPraxis = cache(async (): Promise<Praxis> => {
   if (!client) return mockPraxis;
@@ -79,7 +91,7 @@ export const getPersonen = cache(async (): Promise<Person[]> => {
       title: p.title ?? "",
       qualifications: p.qualifications ?? [],
       bio: p.bio ?? "",
-      photoUrl: p.photo ? (urlForImage(p.photo)?.width(800).url() ?? undefined) : undefined,
+      photoUrl: getSafePhotoUrl(p.photo),
       photoAlt: p.photo?.alt,
     }));
   } catch (e) {

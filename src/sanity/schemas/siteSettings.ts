@@ -112,21 +112,28 @@ export const siteSettings = defineType({
       description: "z. B. Behandlung ausschließlich nach Terminvereinbarung.",
     }),
     defineField({
-      name: "lemniscusEmbedCode",
-      title: "lemniscus my/OT — Einbettungscode (Lemmy-Flansch)",
-      type: "text",
-      rows: 6,
+      name: "lemniscusToken",
+      title: "lemniscus — LemmyFlansch Token",
+      type: "string",
       group: "general",
       description:
-        "Vollständigen Einbettungscode (Script-Tag + DIV) aus lemniscus einfügen. Anleitung: helpdesk.lemniscus.de → my/OT in eigene Website einbinden.",
+        "Der Token aus dem lemniscus-Backend (z. B. 87027031-62f5-43f3-9c34-f00a63aca145). Aktiviert die Online-Terminvergabe site-weit.",
     }),
     defineField({
-      name: "lemniscusEmbedUrl",
-      title: "lemniscus my/OT — iframe-URL (Fallback)",
-      type: "url",
+      name: "lemniscusFloatingSide",
+      title: "lemniscus — Floating-Widget Position",
+      type: "string",
       group: "general",
+      options: {
+        list: [
+          { title: "Rechts", value: "right" },
+          { title: "Links", value: "left" },
+          { title: "Aus (kein Floating-Widget)", value: "none" },
+        ],
+      },
+      initialValue: "right",
       description:
-        "Optional: klassische iframe-Einbettung als Fallback. Wird nur genutzt, wenn oben kein Einbettungscode hinterlegt ist.",
+        "Position des schwebenden Buchungs-Buttons am Bildschirmrand. Auf Aus, wenn nur Inline-Buttons gewünscht sind.",
     }),
   ],
   preview: {

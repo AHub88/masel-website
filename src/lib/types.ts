@@ -26,8 +26,8 @@ export type Praxis = {
   email: string;
   openingHours: OpeningHour[];
   openingHoursNote: string;
-  lemniscusEmbedCode?: string;
-  lemniscusEmbedUrl?: string;
+  lemniscusToken?: string;
+  lemniscusFloatingSide?: "right" | "left" | "none";
 };
 
 export type Person = {

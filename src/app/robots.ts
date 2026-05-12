@@ -1,8 +1,15 @@
 import type { MetadataRoute } from "next";
+import { getSiteUrl } from "@/lib/site-url";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: "*", allow: "/", disallow: ["/datenschutz", "/impressum"] }],
-    sitemap: "https://masel.info/sitemap.xml",
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/datenschutz", "/impressum", "/studio"],
+      },
+    ],
+    sitemap: `${getSiteUrl()}/sitemap.xml`,
   };
 }

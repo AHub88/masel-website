@@ -46,7 +46,7 @@ export default async function TerminPage() {
                 &lt;iframe&gt;
               </code>{" "}
               oder als neuerer lemmy-Flansch. Die URL wird im CMS unter
-              „Praxis-Einstellungen → lemniscus my/OT" gepflegt.
+              &bdquo;Praxis-Einstellungen &rarr; lemniscus my/OT&ldquo; gepflegt.
             </p>
 
             <div className="mt-8 rounded-md bg-primary-light/40 p-5 text-sm text-primary-dark">

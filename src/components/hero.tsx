@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "./container";
 import type { Praxis } from "@/lib/types";
 import { formatPhone } from "@/lib/utils";
@@ -64,25 +65,15 @@ function HeroPhoto() {
   return (
     <div className="relative">
       <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-primary-light shadow-card sm:aspect-[5/6]">
-        <div className="absolute inset-0 grid place-items-center">
-          <div className="text-center">
-            <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-full bg-primary/15">
-              <svg viewBox="0 0 24 24" className="h-14 w-14 text-primary" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="9" cy="8" r="3" />
-                <circle cx="16" cy="9" r="2.5" />
-                <path d="M3 20c0-3 2.5-5 6-5s6 2 6 5" strokeLinecap="round" />
-                <path d="M14 20c0-2.5 2-4 4-4s4 1.5 4 4" strokeLinecap="round" />
-              </svg>
-            </div>
-            <p className="mt-4 font-serif text-lg text-primary-dark">
-              Foto folgt
-            </p>
-            <p className="mt-1 text-xs uppercase tracking-wider text-muted">
-              Barbara & Martin Masel
-            </p>
-          </div>
-        </div>
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-primary-dark/10 to-transparent" />
+        <Image
+          src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80&auto=format&fit=crop"
+          alt="Platzhalter-Foto: ruhiger Behandlungsraum"
+          fill
+          priority
+          sizes="(min-width: 1024px) 45vw, 100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-primary-dark/30 to-transparent" />
       </div>
 
       <div className="absolute -bottom-5 -left-5 hidden rounded-lg bg-surface px-5 py-4 shadow-card sm:block">

@@ -39,6 +39,9 @@ export const mockPersonen: Person[] = [
       "Schwerpunkt Säuglinge & Kinder",
     ],
     bio: "Barbara begleitet seit über 15 Jahren Patientinnen und Patienten jeden Alters. Ihr besonderes Augenmerk liegt auf der einfühlsamen Behandlung von Säuglingen und Kindern sowie auf Beschwerden rund um Schwangerschaft und Geburt.",
+    photoUrl:
+      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=80&auto=format&fit=crop&crop=faces",
+    photoAlt: "Portrait-Platzhalter Barbara Masel",
   },
   {
     slug: "martin-masel",
@@ -52,6 +55,9 @@ export const mockPersonen: Person[] = [
       "Schwerpunkt Bewegungsapparat & Sport",
     ],
     bio: "Martin verbindet seine langjährige Erfahrung als Physiotherapeut mit der ganzheitlichen Sichtweise der Osteopathie. Er begleitet sportlich aktive Menschen ebenso wie Patientinnen und Patienten mit chronischen Beschwerden des Bewegungsapparats.",
+    photoUrl:
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80&auto=format&fit=crop&crop=faces",
+    photoAlt: "Portrait-Platzhalter Martin Masel",
   },
 ];
 

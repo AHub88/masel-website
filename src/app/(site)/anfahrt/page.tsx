@@ -26,9 +26,9 @@ export default async function AnfahrtPage() {
       <Container className="py-14 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
           <figure>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border bg-primary-light">
+            <div className="relative aspect-square overflow-hidden rounded-lg border border-border bg-primary-light">
               <Image
-                src={`https://staticmap.openstreetmap.de/staticmap.php?center=${praxis.address.lat},${praxis.address.lng}&zoom=16&size=900x675&markers=${praxis.address.lat},${praxis.address.lng},red-pushpin`}
+                src="/anfahrt-karte.png"
                 alt={`Lageplan: ${praxis.name}, ${praxis.address.street}, ${praxis.address.zip} ${praxis.address.city}`}
                 fill
                 sizes="(min-width: 1024px) 60vw, 100vw"

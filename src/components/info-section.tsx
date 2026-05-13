@@ -67,7 +67,7 @@ export function InfoSection({ praxis }: { praxis: Praxis }) {
 
             <div className="relative mt-6 aspect-[16/10] overflow-hidden rounded-md bg-primary-light">
               <Image
-                src={`https://staticmap.openstreetmap.de/staticmap.php?center=${praxis.address.lat},${praxis.address.lng}&zoom=15&size=640x400&markers=${praxis.address.lat},${praxis.address.lng},red-pushpin`}
+                src="/anfahrt-karte.png"
                 alt={`Lageplan ${praxis.name}, ${praxis.address.city}`}
                 fill
                 sizes="(min-width: 1024px) 45vw, 100vw"

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "./container";
 import type { Praxis } from "@/lib/types";
 import { formatPhone } from "@/lib/utils";
@@ -64,17 +65,27 @@ export function InfoSection({ praxis }: { praxis: Praxis }) {
               </p>
             </address>
 
-            <div className="mt-6 aspect-[16/10] overflow-hidden rounded-md bg-primary-light">
-              <div className="flex h-full items-center justify-center">
-                <div className="text-center">
-                  <svg viewBox="0 0 24 24" className="mx-auto h-10 w-10 text-primary/60" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 21s-7-4.5-7-11a7 7 0 1 1 14 0c0 6.5-7 11-7 11Z" strokeLinejoin="round" />
-                    <circle cx="12" cy="10" r="2.5" />
-                  </svg>
-                  <p className="mt-2 text-sm text-muted">Karte (DSGVO-Klick-Lösung)</p>
-                </div>
-              </div>
+            <div className="relative mt-6 aspect-[16/10] overflow-hidden rounded-md bg-primary-light">
+              <Image
+                src={`https://staticmap.openstreetmap.de/staticmap.php?center=${praxis.address.lat},${praxis.address.lng}&zoom=15&size=640x400&markers=${praxis.address.lat},${praxis.address.lng},red-pushpin`}
+                alt={`Lageplan ${praxis.name}, ${praxis.address.city}`}
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover"
+              />
             </div>
+            <p className="mt-2 text-xs text-muted">
+              Kartenausschnitt ©{" "}
+              <a
+                href="https://www.openstreetmap.org/copyright"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-primary"
+              >
+                OpenStreetMap
+              </a>
+              -Mitwirkende
+            </p>
 
             <ul className="mt-5 space-y-1.5 text-sm text-foreground/75">
               <li>· Direkt am Bahnhof {praxis.address.city}</li>

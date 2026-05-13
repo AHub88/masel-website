@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageHeader } from "@/components/page-header";
 import { Container } from "@/components/container";
 import { getPraxis } from "@/lib/data";
@@ -24,18 +25,39 @@ export default async function AnfahrtPage() {
 
       <Container className="py-14 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
-          <div className="aspect-[4/3] overflow-hidden rounded-lg border border-border bg-primary-light">
-            <div className="flex h-full items-center justify-center">
-              <div className="text-center">
-                <svg viewBox="0 0 24 24" className="mx-auto h-12 w-12 text-primary/60" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M12 21s-7-4.5-7-11a7 7 0 1 1 14 0c0 6.5-7 11-7 11Z" strokeLinejoin="round" />
-                  <circle cx="12" cy="10" r="2.5" />
-                </svg>
-                <p className="mt-3 text-sm text-muted">Karte erscheint nach Klick</p>
-                <p className="mt-1 text-xs text-muted">(DSGVO-konforme Zwei-Klick-Lösung)</p>
-              </div>
+          <figure>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border bg-primary-light">
+              <Image
+                src={`https://staticmap.openstreetmap.de/staticmap.php?center=${praxis.address.lat},${praxis.address.lng}&zoom=16&size=900x675&markers=${praxis.address.lat},${praxis.address.lng},red-pushpin`}
+                alt={`Lageplan: ${praxis.name}, ${praxis.address.street}, ${praxis.address.zip} ${praxis.address.city}`}
+                fill
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                className="object-cover"
+              />
             </div>
-          </div>
+            <figcaption className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-muted">
+              <span>
+                Kartenausschnitt ©{" "}
+                <a
+                  href="https://www.openstreetmap.org/copyright"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-primary"
+                >
+                  OpenStreetMap
+                </a>
+                -Mitwirkende
+              </span>
+              <a
+                href={`https://www.openstreetmap.org/?mlat=${praxis.address.lat}&mlon=${praxis.address.lng}#map=17/${praxis.address.lat}/${praxis.address.lng}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary hover:text-primary-dark"
+              >
+                Interaktive Karte öffnen ↗
+              </a>
+            </figcaption>
+          </figure>
 
           <div>
             <address className="not-italic">
